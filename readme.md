@@ -148,5 +148,12 @@ What if two or more behaviors are attempting to modify the state of a single ent
 
 Something I would try would probably be a locking mechanism, as it keeps our invocations synchronous and therefor simple. Queueing is a bit more resilient, but tends to leave calling code or tests 'in the dark' on when business processes actually complete, and adds a ton of complexity into the system.
 
+## System Design
+Wait, why are we allowing a user to pick all of options instead of just giving them the choice of "HoneyCrisp", "Pink Lady", "Red Delicious", and "Grannysmith"?
+
+Great question.  That would describe a system with limited, and reasonable, scope. I wouldn't apply a state machine nor a 'behavior machine' to that problem. In reality, that problem is a lot easier to solve than the one explained in this proof of concept. 
+
+This is a question I would take to a Product Owner, or even a Model System Manager, and make them seriously consider the consequences of allowing this extreme amount of configurability. Not going down that path is by far the better solution, if the business case allows for it.
+
 ## Conclusion
 Overall I think it pans out.  In theory, a user could utilize our system by defining behaviors on their apples, and knowing that we tested all of our behaviors, we're ready to push to production. It solves the problem of needing to test endless permutations of configuration settings while allowing testing of specific business logic.

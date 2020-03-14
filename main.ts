@@ -5,8 +5,6 @@ import { invoke } from "./entities/apple/apple";
  * main executor just for some test runs.
  */
 
-
-
 (async () => {
     // scenario where the user just picks red, and
     // nothing else.
@@ -16,11 +14,4 @@ import { invoke } from "./entities/apple/apple";
     await invoke(apple, Event.onSeed);
     await invoke(apple, Event.onRipe);
     await invoke(apple, Event.onRotten);
-
-    // scenario where we have a red and sweet apple
-    apple = {
-        color: Color.Red,
-        sweetness: Sweetness.Sweet
-    }
-    await invoke(apple, Event.onRipe);
 })();

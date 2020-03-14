@@ -1,9 +1,10 @@
-import { Apple, Sweetness } from "../../model";
+import { Apple, Sweetness, Color } from "../../model";
 
 export async function onRipe(apple: Apple): Promise<boolean> {
     if (apple.sweetness !== Sweetness.Sweet)
-        return true;
+        return false;
 
-    console.log(`woah I'm a sweet apple!`);
+    apple.color = Color.Pink;
+
     return true;
 }

@@ -1,4 +1,4 @@
-import { Apple, Color } from "../../model";
+import { Apple, Color, State } from "../../model";
 
 /**
  * when an apple is red, we do something special when
@@ -6,9 +6,8 @@ import { Apple, Color } from "../../model";
  */
 export async function onSeed(apple: Apple): Promise<boolean> {
     if (apple.color !== Color.Red)
-        return true;
+        return false;
 
-    console.log(`a red apple was created!!`);
     return true;
 }
 
@@ -18,8 +17,7 @@ export async function onSeed(apple: Apple): Promise<boolean> {
  */
 export async function onRotten(apple: Apple): Promise<boolean> {
     if (apple.color !== Color.Red)
-        return true;
+        return false;
 
-    console.log(`a red apple has rotted.`);
     return true;
 }

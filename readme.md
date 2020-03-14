@@ -108,6 +108,14 @@ A couple of other points:
 ### Other Architectural Concerns
 There's always other what-if cases to concider when creating a system like this.
 
+#### Complex Behaviors
+What if we wanted to create a behavior that needed to check for both the color and the sweetness? If an apple was both red and sweet, it would execute something. The system is actually set up to handle this case very well. Just create a new behavior, even if this specific behavior is not exposed to the end-user.
+
+What about a case where we wanted to check if an apple was red and sweet, and if so we didn't want to execute the other logic of red? This a bit more complex, as our system was designed for behaviors to run independently, and not impact other behaviors. A couple of thoughts on this:
+
+ - We could re-design how we think about behaviors. Perhaps at this point "Red" and "Sweet" shouldn't be totally seperate, but maybe it makes sense to combine them into a "HoneyCrisp" instead.
+ - We could design a precedence system that runs ordered behaviors sequentially, and if need be, prevents other specific behaviors based on a result flag. This makes me think the system could sure get complicated and difficult to trace in the long run, however.
+
 #### Behavior Conflicts
 Here's the current code of the `apple.ts` file:
 
@@ -139,3 +147,6 @@ This is a solvable problem though, we could implement a chain a precedence to or
 What if two or more behaviors are attempting to modify the state of a single entity at the same time? So this problem isn't specific to our proof of concept. This is a problem that's typically solved by using locks, queues, throttling, or some other mechanism, but this is still a problem with our POC. 
 
 Something I would try would probably be a locking mechanism, as it keeps our invocations synchronous and therefor simple. Queueing is a bit more resilient, but tends to leave calling code or tests 'in the dark' on when business processes actually complete, and adds a ton of complexity into the system.
+
+## Conclusion
+Overall I think it pans out.  In theory, a user could utilize our system by defining behaviors on their apples, and knowing that we tested all of our behaviors, we're ready to push to production. It solves the problem of needing to test endless permutations of configuration settings while allowing testing of specific business logic.

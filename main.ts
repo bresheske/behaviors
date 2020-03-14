@@ -1,4 +1,4 @@
-import { Apple, Color, Event } from "./entities/apple/model";
+import { Apple, Color, Event, Sweetness } from "./entities/apple/model";
 import { invoke } from "./entities/apple/apple";
 
 /**
@@ -6,12 +6,21 @@ import { invoke } from "./entities/apple/apple";
  */
 
 
-// scenario where the user just picks red, and
-// nothing else.
-const apple: Apple = {
-    color: Color.Red
-};
 
 (async () => {
-    const result = await invoke(apple, Event.onSeed);
+    // scenario where the user just picks red, and
+    // nothing else.
+    let apple: Apple = {
+        color: Color.Red
+    };
+    await invoke(apple, Event.onSeed);
+    await invoke(apple, Event.onRipe);
+    await invoke(apple, Event.onRotten);
+
+    // scenario where we have a red and sweet apple
+    apple = {
+        color: Color.Red,
+        sweetness: Sweetness.Sweet
+    }
+    await invoke(apple, Event.onRipe);
 })();
